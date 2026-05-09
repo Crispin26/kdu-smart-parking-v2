@@ -1,0 +1,78 @@
+{
+  "frames_processed": 477,
+  "summary": {
+    "free": 8,
+    "occupied": 9,
+    "total": 17
+  },
+  "slots": [
+    {
+      "id": 0,
+      "status": "FREE"
+    },
+    {
+      "id": 1,
+      "status": "FREE"
+    },
+    {
+      "id": 2,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 3,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 4,
+      "status": "FREE"
+    },
+    {
+      "id": 5,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 6,
+      "status": "FREE"
+    },
+    {
+      "id": 7,
+      "status": "FREE"
+    },
+    {
+      "id": 8,
+      "status": "FREE"
+    },
+    {
+      "id": 9,
+      "status": "FREE"
+    },
+    {
+      "id": 10,
+      "status": "FREE"
+    },
+    {
+      "id": 11,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 12,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 13,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 14,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 15,
+      "status": "OCCUPIED"
+    },
+    {
+      "id": 16,
+      "status": "OCCUPIED"
+    }
+  ]
+}
