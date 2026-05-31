@@ -1,0 +1,483 @@
+{
+  "generated_at": "2026-06-01 02:38:05",
+  "model_accuracy": {
+    "S0": 77.9,
+    "S1": 81.4,
+    "S2": 83.1,
+    "S3": 84.5,
+    "S4": 86.7,
+    "S5": 87.3,
+    "S6": 87.0
+  },
+  "avg_accuracy": 84.0,
+  "forecast": [
+    {
+      "forecast_time": "2026-06-01 02:38",
+      "minutes_from_now": 0,
+      "slots": {
+        "S0": {
+          "prediction": "OCCUPIED",
+          "probability": 52.3
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 12.7
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 13.6
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 23.4
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.9
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.3
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 6,
+      "predicted_occupied": 1
+    },
+    {
+      "forecast_time": "2026-06-01 02:43",
+      "minutes_from_now": 5,
+      "slots": {
+        "S0": {
+          "prediction": "OCCUPIED",
+          "probability": 56.9
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 12.9
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 14.1
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 19.7
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.4
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.3
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 6,
+      "predicted_occupied": 1
+    },
+    {
+      "forecast_time": "2026-06-01 02:48",
+      "minutes_from_now": 10,
+      "slots": {
+        "S0": {
+          "prediction": "OCCUPIED",
+          "probability": 51.2
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 24.0
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 17.2
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 24.7
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.4
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 6,
+      "predicted_occupied": 1
+    },
+    {
+      "forecast_time": "2026-06-01 02:53",
+      "minutes_from_now": 15,
+      "slots": {
+        "S0": {
+          "prediction": "OCCUPIED",
+          "probability": 58.0
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 28.4
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 15.6
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 19.9
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.4
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 6,
+      "predicted_occupied": 1
+    },
+    {
+      "forecast_time": "2026-06-01 02:58",
+      "minutes_from_now": 20,
+      "slots": {
+        "S0": {
+          "prediction": "OCCUPIED",
+          "probability": 56.6
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 29.4
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 15.6
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 19.9
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.4
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 6,
+      "predicted_occupied": 1
+    },
+    {
+      "forecast_time": "2026-06-01 03:03",
+      "minutes_from_now": 25,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 35.9
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 29.3
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 20.7
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 10.5
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 2.7
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:08",
+      "minutes_from_now": 30,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 36.7
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 13.3
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 12.1
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 6.8
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 4.9
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:13",
+      "minutes_from_now": 35,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 25.5
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 10.3
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 11.9
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 7.1
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 6.5
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:18",
+      "minutes_from_now": 40,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 21.8
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 10.2
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 13.3
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 9.2
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.5
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:23",
+      "minutes_from_now": 45,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 29.3
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 10.0
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 14.3
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 13.7
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.3
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:28",
+      "minutes_from_now": 50,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 23.6
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 8.2
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 12.9
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 14.1
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.2
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.0
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:33",
+      "minutes_from_now": 55,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 25.1
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 10.3
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 9.4
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 14.8
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.2
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.3
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    },
+    {
+      "forecast_time": "2026-06-01 03:38",
+      "minutes_from_now": 60,
+      "slots": {
+        "S0": {
+          "prediction": "FREE",
+          "probability": 22.7
+        },
+        "S1": {
+          "prediction": "FREE",
+          "probability": 7.4
+        },
+        "S2": {
+          "prediction": "FREE",
+          "probability": 8.0
+        },
+        "S3": {
+          "prediction": "FREE",
+          "probability": 11.0
+        },
+        "S4": {
+          "prediction": "FREE",
+          "probability": 1.1
+        },
+        "S5": {
+          "prediction": "FREE",
+          "probability": 0.3
+        },
+        "S6": {
+          "prediction": "FREE",
+          "probability": 0.0
+        }
+      },
+      "predicted_free": 7,
+      "predicted_occupied": 0
+    }
+  ]
+}

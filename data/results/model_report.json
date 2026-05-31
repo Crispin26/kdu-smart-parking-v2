@@ -1,0 +1,24 @@
+{
+  "trained_at": "2026-06-01 02:38:05",
+  "training_records": 2031,
+  "real_records": 15,
+  "synthetic_records": 2016,
+  "model_type": "RandomForestClassifier",
+  "features": [
+    "hour",
+    "minute",
+    "day_of_week",
+    "minutes_since_midnight",
+    "is_weekend"
+  ],
+  "slot_accuracies": {
+    "S0": 77.9,
+    "S1": 81.4,
+    "S2": 83.1,
+    "S3": 84.5,
+    "S4": 86.7,
+    "S5": 87.3,
+    "S6": 87.0
+  },
+  "avg_accuracy": 84.0
+}
