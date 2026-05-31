@@ -3,16 +3,19 @@ import json
 import os
 import sys
 import numpy as np
+from datetime import datetime
 from ultralytics import YOLO
 
 # ── CONFIG ─────────────────────────────────────────────────────────────────────
 VEHICLE_CLASSES   = [2, 5, 7, 67]   # car, bus, truck + top-down misclass
 YOLO_CONF         = 0.25
 YOLO_OVERLAP_THR  = 0.20            # fraction of slot area covered by bbox
-DARK_THR          = 75             # mean brightness below this = dark object in slot
-DARK_FRAC         = 0.25          # fraction of slot pixels that must be dark
-STABILITY_FRAMES  = 5               # consecutive frames before flipping state
+DARK_THR          = 75              # brightness below this = dark object in slot
+DARK_FRAC         = 0.25            # fraction of slot pixels that must be dark
+STABILITY_FRAMES  = 8               # consecutive frames before flipping state
 SKIP_FRAMES       = 3               # process every Nth frame
+LOG_INTERVAL_SEC  = 5               # log occupancy every N seconds of video time
+RESULTS_PATH      = "data/results/occupancy.json"
 # ──────────────────────────────────────────────────────────────────────────────
 
 model = YOLO("models/yolov8m.pt")
@@ -25,32 +28,66 @@ if not os.path.exists(slots_path):
 with open(slots_path, "r", encoding="utf-8") as f:
     slots = json.load(f)
 
+os.makedirs(os.path.dirname(os.path.abspath(RESULTS_PATH)), exist_ok=True)
 
+
+# ── Occupancy Logger ──────────────────────────────────────────────────────────
+class OccupancyLogger:
+    def __init__(self, path):
+        self.path    = path
+        self.records = []
+        if os.path.exists(path):
+            try:
+                with open(path, "r") as f:
+                    self.records = json.load(f)
+                print(f"Loaded {len(self.records)} existing records from {path}")
+            except Exception:
+                self.records = []
+
+    def log(self, stable_status, video_time_sec):
+        record = {
+            "timestamp":      datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "video_time_sec": round(video_time_sec, 1),
+            "slots": {
+                f"S{slot['id']}": "OCCUPIED" if stable_status[i] else "FREE"
+                for i, slot in enumerate(slots)
+            },
+            "total_free":     sum(1 for s in stable_status if not s),
+            "total_occupied": sum(1 for s in stable_status if s),
+            "total_slots":    len(stable_status)
+        }
+        self.records.append(record)
+        self._save()
+        return record
+
+    def _save(self):
+        with open(self.path, "w", encoding="utf-8") as f:
+            json.dump(self.records, f, indent=2)
+
+    def summary(self):
+        print(f"\n📊 Logged {len(self.records)} records -> {self.path}")
+
+
+# ── Detection helpers ─────────────────────────────────────────────────────────
 def slot_mask(slot_points, frame_shape):
-    """Return a binary mask for a slot polygon."""
     mask = np.zeros(frame_shape[:2], dtype=np.uint8)
-    pts  = np.array(slot_points, dtype=np.int32)
-    cv2.fillPoly(mask, [pts], 255)
+    cv2.fillPoly(mask, [np.array(slot_points, dtype=np.int32)], 255)
     return mask
 
 
 def yolo_occupied(box, slot_points, frame_shape):
-    """True if YOLO bbox overlaps slot polygon by more than threshold."""
     frame_h, frame_w = frame_shape[:2]
     x1, y1, x2, y2  = box
     vehicle_poly     = np.array([[x1,y1],[x2,y1],[x2,y2],[x1,y2]], dtype=np.int32)
     slot_poly        = np.array(slot_points, dtype=np.int32)
-
-    sx, sy, sw, sh = cv2.boundingRect(slot_poly)
+    sx, sy, sw, sh   = cv2.boundingRect(slot_poly)
     margin = 50
-    rx1 = max(0, sx - margin);  ry1 = max(0, sy - margin)
+    rx1 = max(0, sx-margin);          ry1 = max(0, sy-margin)
     rx2 = min(frame_w, sx+sw+margin); ry2 = min(frame_h, sy+sh+margin)
-
-    mv = np.zeros((ry2-ry1, rx2-rx1), dtype=np.uint8)
-    ms = np.zeros((ry2-ry1, rx2-rx1), dtype=np.uint8)
+    mv  = np.zeros((ry2-ry1, rx2-rx1), dtype=np.uint8)
+    ms  = np.zeros((ry2-ry1, rx2-rx1), dtype=np.uint8)
     cv2.fillPoly(mv, [vehicle_poly - [rx1,ry1]], 255)
-    cv2.fillPoly(ms, [slot_poly   - [rx1,ry1]], 255)
-
+    cv2.fillPoly(ms, [slot_poly    - [rx1,ry1]], 255)
     slot_area    = cv2.countNonZero(ms)
     overlap_area = cv2.countNonZero(cv2.bitwise_and(mv, ms))
     if slot_area == 0:
@@ -59,60 +96,41 @@ def yolo_occupied(box, slot_points, frame_shape):
 
 
 def pixel_occupied(frame_gray, slot_points, frame_shape):
-    """
-    Fallback: check if a large dark region exists inside the slot.
-    Dark cars (top-down view) have very low brightness values.
-    """
-    mask       = slot_mask(slot_points, frame_shape)
-    slot_area  = cv2.countNonZero(mask)
+    mask        = slot_mask(slot_points, frame_shape)
+    slot_area   = cv2.countNonZero(mask)
     if slot_area == 0:
         return False
-
     slot_pixels = cv2.bitwise_and(frame_gray, frame_gray, mask=mask)
     dark_pixels = np.sum((slot_pixels > 0) & (slot_pixels < DARK_THR))
-    ratio       = dark_pixels / slot_area
-    return ratio > DARK_FRAC
+    return (dark_pixels / slot_area) > DARK_FRAC
 
 
 def process_frame(frame):
-    """Hybrid detection: YOLO first, pixel fallback for missed dark cars."""
     gray    = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     results = model(frame, conf=YOLO_CONF, verbose=False)
-
     detections = []
     for result in results:
         for box in result.boxes:
-            cls = int(box.cls[0])
-            if cls in VEHICLE_CLASSES:
+            if int(box.cls[0]) in VEHICLE_CLASSES:
                 x1, y1, x2, y2 = map(int, box.xyxy[0])
-                conf = float(box.conf[0])
-                detections.append((x1, y1, x2, y2, conf))
+                detections.append((x1, y1, x2, y2, float(box.conf[0])))
 
     raw_status = []
-    methods    = []   # track how each slot was determined (for debug)
     for slot in slots:
-        # 1. Try YOLO first
         yolo_hit = any(yolo_occupied(d[:4], slot["points"], frame.shape)
                        for d in detections)
         if yolo_hit:
             raw_status.append(True)
-            methods.append("YOLO")
         else:
-            # 2. Fallback: pixel darkness check
-            dark_hit = pixel_occupied(gray, slot["points"], frame.shape)
-            raw_status.append(dark_hit)
-            methods.append("PIXEL" if dark_hit else "FREE")
-
-    return detections, raw_status, methods
+            raw_status.append(pixel_occupied(gray, slot["points"], frame.shape))
+    return detections, raw_status
 
 
-def draw_results(frame, detections, stable_status):
-    """Draw slots and detections on frame."""
+def draw_results(frame, detections, stable_status, video_time_sec):
     overlay = frame.copy()
     for i, slot in enumerate(slots):
-        pts      = np.array(slot["points"], dtype=np.int32)
-        occupied = stable_status[i]
-        color    = (0, 0, 255) if occupied else (0, 255, 0)
+        pts   = np.array(slot["points"], dtype=np.int32)
+        color = (0, 0, 255) if stable_status[i] else (0, 255, 0)
         cv2.fillPoly(overlay, [pts], color)
         cv2.polylines(frame, [pts], isClosed=True, color=color, thickness=2)
         cx = sum(p[0] for p in slot["points"]) // 4
@@ -127,9 +145,13 @@ def draw_results(frame, detections, stable_status):
 
     free  = sum(1 for s in stable_status if not s)
     total = len(stable_status)
-    cv2.rectangle(frame, (10,10), (370,65), (0,0,0), -1)
+    cv2.rectangle(frame, (10, 10), (420, 90), (0,0,0), -1)
     cv2.putText(frame, f"FREE: {free}/{total}  |  TAKEN: {total-free}/{total}",
-                (20,45), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0), 2)
+                (20, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0), 2)
+    mins = int(video_time_sec // 60)
+    secs = int(video_time_sec % 60)
+    cv2.putText(frame, f"Video time: {mins:02d}:{secs:02d}",
+                (20, 78), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (200,200,200), 1)
     return frame
 
 
@@ -147,13 +169,17 @@ if not cap.isOpened():
 fps          = cap.get(cv2.CAP_PROP_FPS)
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 print(f"Video FPS: {fps}  |  Total frames: {total_frames}")
-print("Press Q to quit.")
+print(f"Logging every {LOG_INTERVAL_SEC}s -> {RESULTS_PATH}")
+print("Press Q to quit.\n")
 
-num_slots        = len(slots)
-stable_status    = [False] * num_slots
-consecutive      = [0]     * num_slots
-frame_count      = 0
-last_detections  = []
+num_slots       = len(slots)
+stable_status   = [False] * num_slots
+consecutive     = [0]     * num_slots
+frame_count     = 0
+last_detections = []
+last_log_sec    = -LOG_INTERVAL_SEC
+
+logger = OccupancyLogger(RESULTS_PATH)
 
 cv2.namedWindow("Smart Parking", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("Smart Parking", 1280, 720)
@@ -162,11 +188,11 @@ while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
-    frame_count += 1
+    frame_count   += 1
+    video_time_sec = frame_count / fps
 
     if frame_count % SKIP_FRAMES == 0:
-        last_detections, raw_status, methods = process_frame(frame)
-
+        last_detections, raw_status = process_frame(frame)
         for i in range(num_slots):
             if raw_status[i] == stable_status[i]:
                 consecutive[i] = 0
@@ -176,13 +202,20 @@ while cap.isOpened():
                     stable_status[i] = raw_status[i]
                     consecutive[i]   = 0
 
-    frame = draw_results(frame, last_detections, stable_status)
+    if video_time_sec - last_log_sec >= LOG_INTERVAL_SEC:
+        rec = logger.log(stable_status, video_time_sec)
+        print(f"  [{rec['video_time_sec']:6.1f}s] "
+              f"FREE={rec['total_free']}  OCCUPIED={rec['total_occupied']}")
+        last_log_sec = video_time_sec
+
+    frame = draw_results(frame, last_detections, stable_status, video_time_sec)
     cv2.imshow("Smart Parking", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
 cv2.destroyAllWindows()
+logger.summary()
 
 print(f"\nProcessed {frame_count}/{total_frames} frames")
 print("\n--- Final Slot Status ---")

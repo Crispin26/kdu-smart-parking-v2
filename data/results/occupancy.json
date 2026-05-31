@@ -1,78 +1,242 @@
-{
-  "frames_processed": 477,
-  "summary": {
-    "free": 8,
-    "occupied": 9,
-    "total": 17
+[
+  {
+    "timestamp": "2026-06-01 02:21:26",
+    "video_time_sec": 0.0,
+    "slots": {
+      "S0": "FREE",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
+    },
+    "total_free": 7,
+    "total_occupied": 0,
+    "total_slots": 7
   },
-  "slots": [
-    {
-      "id": 0,
-      "status": "FREE"
+  {
+    "timestamp": "2026-06-01 02:21:58",
+    "video_time_sec": 5.0,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 1,
-      "status": "FREE"
+    "total_free": 6,
+    "total_occupied": 1,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:22:28",
+    "video_time_sec": 10.0,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 2,
-      "status": "OCCUPIED"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:22:59",
+    "video_time_sec": 15.0,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 3,
-      "status": "OCCUPIED"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:23:28",
+    "video_time_sec": 20.0,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 4,
-      "status": "FREE"
+    "total_free": 6,
+    "total_occupied": 1,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:23:58",
+    "video_time_sec": 25.0,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 5,
-      "status": "OCCUPIED"
+    "total_free": 6,
+    "total_occupied": 1,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:24:28",
+    "video_time_sec": 30.0,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 6,
-      "status": "FREE"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:24:58",
+    "video_time_sec": 35.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 7,
-      "status": "FREE"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:25:28",
+    "video_time_sec": 40.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 8,
-      "status": "FREE"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:25:57",
+    "video_time_sec": 45.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 9,
-      "status": "FREE"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:26:28",
+    "video_time_sec": 50.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 10,
-      "status": "FREE"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:26:57",
+    "video_time_sec": 55.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "OCCUPIED",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 11,
-      "status": "OCCUPIED"
+    "total_free": 5,
+    "total_occupied": 2,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:27:28",
+    "video_time_sec": 60.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 12,
-      "status": "OCCUPIED"
+    "total_free": 6,
+    "total_occupied": 1,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:27:59",
+    "video_time_sec": 65.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 13,
-      "status": "OCCUPIED"
+    "total_free": 6,
+    "total_occupied": 1,
+    "total_slots": 7
+  },
+  {
+    "timestamp": "2026-06-01 02:28:30",
+    "video_time_sec": 70.1,
+    "slots": {
+      "S0": "OCCUPIED",
+      "S1": "FREE",
+      "S2": "FREE",
+      "S3": "FREE",
+      "S4": "FREE",
+      "S5": "FREE",
+      "S6": "FREE"
     },
-    {
-      "id": 14,
-      "status": "OCCUPIED"
-    },
-    {
-      "id": 15,
-      "status": "OCCUPIED"
-    },
-    {
-      "id": 16,
-      "status": "OCCUPIED"
-    }
-  ]
-}
+    "total_free": 6,
+    "total_occupied": 1,
+    "total_slots": 7
+  }
+]
